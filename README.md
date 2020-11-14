@@ -38,12 +38,9 @@ for example in `.config/powerline/colorschemes/default.json`:
 ```json
 {
   "groups": {
-    "kubernetes_context":          { "fg": "darkblue",           "bg": "cyan2", "attrs": [] },
-    "kubernetes_context:alert":    { "fg": "white",              "bg": "brightred", "attrs": [] },
-    "kubernetes_cluster":          { "fg": "darkblue",           "bg": "cyan4", "attrs": [] },
-    "kubernetes_namespace":        { "fg": "darkblue",           "bg": "cyan6", "attrs": [] },
-    "kubernetes_namespace:alert":  { "fg": "white",              "bg": "brightred", "attrs": [] },
-    "kubernetes_user":             { "fg": "darkblue",           "bg": "cyan8", "attrs": [] }
+    "k8sstatus":                  { "fg": "darkblue",           "bg": "cyan2", "attrs": [] },
+    "k8sstatus_cluster":          { "fg": "darkblue",           "bg": "cyan4", "attrs": [] },
+    "k8sstatus_namespace":        { "fg": "darkblue",           "bg": "cyan6", "attrs": [] }
   }
 }
 ```
@@ -53,17 +50,11 @@ for example in `.config/powerline/themes/shell/default.json`:
 
 ```json
 {
-    "function": "powerkube_k8sstatus.k8sstatus",
+    "function": "powerline_k8sstatus.k8sstatus",
     "priority": 30,
     "args": {
-        "show_context": true,
         "show_cluster": false,
-        "show_namespace": false,
-        "show_user": false,
-        "alert_namespaces": [
-            "data-prod",
-            "infra-prod"
-        ]
+        "show_namespace": false
     }
 },
 ```
