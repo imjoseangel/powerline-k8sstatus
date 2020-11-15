@@ -9,6 +9,7 @@ By [imjoseangel][2]
 It will show any or all of:
 
 * context name
+* namespace
 
 You can also:
 
