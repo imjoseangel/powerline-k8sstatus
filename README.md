@@ -60,6 +60,6 @@ Licensed under [the MIT License][3].
 [1]: https://powerline.readthedocs.org/en/master/
 [2]: https://imjoseangel.github.io
 [3]: https://github.com/imjoseangel/powerline-k8sstatus/blob/devel/LICENSE
-[4]: https://github.com/imjoseangel/powerline-k8sstatus/blob/devel/screenshot.jpg
+[4]: https://github.com/imjoseangel/powerline-k8sstatus/blob/devel/screenshot.png
 [5]: https://kubernetes.io/docs/reference/kubectl/overview/
 [6]: https://kubernetes.io/docs/tasks/tools/install-kubectl/
