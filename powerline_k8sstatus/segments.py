@@ -16,15 +16,16 @@ class K8SStatusSegment(Segment):
         segments = [{'contents': (u'\U00002388 {}').format(
             context.lower()), 'highlight_groups': ['k8sstatus']}]
 
-        segments.append({
-            'contents': namespace,
-            'highlight_groups': ['k8sstatus_namespace'],
-            'divider_highlight_group': 'k8sstatus:divider'
-        })
+        if namespace and namespace.lower() != 'default':
+            segments.append({
+                'contents': namespace,
+                'highlight_groups': ['k8sstatus_namespace', 'k8sstatus'],
+                'divider_highlight_group': 'k8sstatus:divider'
+            })
 
         return segments
 
-    def __call__(self, pl, segment_info, create_watcher):
+    def __call__(self, pl, segment_info, create_watcher, show_namespace=False):
 
         try:
             contexts, active_context = config.list_kube_config_contexts()
@@ -35,12 +36,13 @@ class K8SStatusSegment(Segment):
             return
 
         context = active_context['name']
-        cluster = active_context['context']['cluster']
-        user = active_context['context']['user']
 
-        try:
-            namespace = active_context['context']['namespace']
-        except KeyError:
+        if show_namespace:
+            try:
+                namespace = active_context['context']['namespace']
+            except KeyError:
+                namespace = 'default'
+        else:
             namespace = 'default'
 
         return self.build_segments(context, namespace)
