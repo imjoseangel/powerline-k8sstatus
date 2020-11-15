@@ -35,7 +35,7 @@ for example in `.config/powerline/colorschemes/default.json`:
 ```json
 {
   "groups": {
-    "k8sstatus":                  { "fg": "darkblue",           "bg": "cyan2", "attrs": [] }
+    "k8sstatus": { "fg": "darkblue", "bg": "cyan2", "attrs": [] }
   }
 }
 ```
