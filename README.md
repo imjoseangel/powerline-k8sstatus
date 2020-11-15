@@ -18,7 +18,7 @@ You can also:
 
 ## Requirements
 
-The K8Sstatus segment requires kubectl[5]. It can be installing following the instructions here[6].
+The K8Sstatus segment requires [kubectl][5]. It can be installing following the instructions [here][6].
 
 ## Installation
 
