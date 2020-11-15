@@ -5,7 +5,7 @@ setup(
     description='A Powerline segment for showing the status of current Kubernetes context',
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    version='1.0.0',
+    version='1.0.1',
     keywords='powerline k8s kubernetes status prompt',
     license='MIT',
     author='Jose Angel Munoz',
