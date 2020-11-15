@@ -36,7 +36,9 @@ for example in `.config/powerline/colorschemes/default.json`:
 ```json
 {
   "groups": {
-    "k8sstatus": { "fg": "darkblue", "bg": "cyan2", "attrs": [] }
+    "k8sstatus":           {"fg": "white",  "bg": "mediumorange", "attrs": []},
+    "k8sstatus_namespace": {"fg": "gray10", "bg": "darkestblue",  "attrs": []},
+    "k8sstatus:divider":   {"fg": "white",  "bg": "mediumorange", "attrs": []}
   }
 }
 ```
@@ -47,7 +49,10 @@ for example in `.config/powerline/themes/shell/default.json`:
 ```json
 {
     "function": "powerline_k8sstatus.k8sstatus",
-    "priority": 30
+    "priority": 30,
+    "args": {
+      "show_namespace": true
+    }
 }
 ```
 
