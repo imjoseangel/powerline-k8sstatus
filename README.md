@@ -47,8 +47,10 @@ for example in `.config/powerline/themes/shell/default.json`:
 {
     "function": "powerline_k8sstatus.k8sstatus",
     "priority": 30
-},
+}
 ```
+
+Reload powerline running `powerline-daemon --replace` to load the new settings.
 
 ## License
 
