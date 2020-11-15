@@ -14,7 +14,7 @@ class K8SStatusSegment(Segment):
 
     def build_segments(self, context, namespace):
         segments = [{'contents': (u'\U00002388 {}').format(
-            context.lower()), 'highlight_groups': ['k8sstatus']}]
+            context), 'highlight_groups': ['k8sstatus']}]
 
         if namespace and namespace.lower() != 'default':
             segments.append({
