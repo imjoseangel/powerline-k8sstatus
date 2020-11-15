@@ -9,9 +9,6 @@ By [imjoseangel][2]
 It will show any or all of:
 
 * context name
-* cluster name
-* namespace
-* current user
 
 You can also:
 
@@ -38,9 +35,7 @@ for example in `.config/powerline/colorschemes/default.json`:
 ```json
 {
   "groups": {
-    "k8sstatus":                  { "fg": "darkblue",           "bg": "cyan2", "attrs": [] },
-    "k8sstatus_cluster":          { "fg": "darkblue",           "bg": "cyan4", "attrs": [] },
-    "k8sstatus_namespace":        { "fg": "darkblue",           "bg": "cyan6", "attrs": [] }
+    "k8sstatus":                  { "fg": "darkblue",           "bg": "cyan2", "attrs": [] }
   }
 }
 ```
@@ -51,11 +46,7 @@ for example in `.config/powerline/themes/shell/default.json`:
 ```json
 {
     "function": "powerline_k8sstatus.k8sstatus",
-    "priority": 30,
-    "args": {
-        "show_cluster": false,
-        "show_namespace": false
-    }
+    "priority": 30
 },
 ```
 

@@ -11,10 +11,15 @@ from kubernetes import config
 @requires_segment_info
 class K8SStatusSegment(Segment):
 
-    def build_segments(self):
-        pass
+    def build_segments(self, formats, context):
+        segments = [
+            {'contents': formats.get('k8sstatus', u'\U00002388  {}').format(
+                context), 'divider_highlight_group': 'k8sstatus:divider'}
+        ]
 
-    def __call__(self, pl, segment_info, show_cluster=False, show_user=False, show_namespace=True):
+        return segments
+
+    def __call__(self, pl, segment_info, formats={}):
 
         try:
             contexts, active_context = config.list_kube_config_contexts()
@@ -24,7 +29,7 @@ class K8SStatusSegment(Segment):
         if not contexts:
             return
 
-        name = active_context['name']
+        context = active_context['name']
         cluster = active_context['context']['cluster']
         user = active_context['context']['user']
 
@@ -33,18 +38,19 @@ class K8SStatusSegment(Segment):
         except KeyError:
             return
 
-        return self.build_segments(active_context)
+        return self.build_segments(formats, context)
 
 
 k8sstatus = with_docstring(K8SStatusSegment(),
                            '''Return the status of the current Kubernetes context.
+
 It will show the context name together with the cluster name and the namespace.
-:param bool show_cluster:
-    Show cluster name. False by default to avoid long names.
-:param bool show_namespace:
-    Show namespace. True if namespace is not `default`.
-:param bool show_user:
-    Show cluster connected user. False by default.
+
+:param dict formats:
+    A string-to-string dictionary for customizing K8S status formats. Valid keys include ``context``.
+    Empty dictionary by default, which means the default formats are used.
+
 Divider highlight group used: ``k8sstatus:divider``.
-Highlight groups used: ``k8sstatus_name``, ``k8sstatus_cluster``, ``k8sstatus_namespace``, ``k8sstatus_user``, ``k8sstatus``.
+
+Highlight groups used: ``k8sstatus_name``, ``k8sstatus``.
 ''')
