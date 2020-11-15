@@ -33,8 +33,5 @@ class K8SStatusSegment(Segment):
         return self.build_segments(context)
 
 
-k8sstatus = with_docstring(K8SStatusSegment(),
-                           '''Return the status of the current Kubernetes context.
-
-It will show the context name together with the cluster name and the namespace.
-''')
+k8sstatus = with_docstring(
+    K8SStatusSegment(), '''Return the status of the current Kubernetes context.''')
