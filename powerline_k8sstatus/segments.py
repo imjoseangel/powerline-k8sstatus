@@ -12,9 +12,15 @@ from kubernetes import config
 class K8SStatusSegment(Segment):
     divider_highlight_group = None
 
-    def build_segments(self, context):
+    def build_segments(self, context, namespace):
         segments = [{'contents': (u'\U00002388 {}').format(
-            context), 'highlight_groups': ['k8sstatus']}]
+            context.lower()), 'highlight_groups': ['k8sstatus']}]
+
+        segments.append({
+            'contents': namespace,
+            'highlight_groups': ['k8sstatus_namespace'],
+            'divider_highlight_group': 'k8sstatus:divider'
+        })
 
         return segments
 
@@ -29,8 +35,15 @@ class K8SStatusSegment(Segment):
             return
 
         context = active_context['name']
+        cluster = active_context['context']['cluster']
+        user = active_context['context']['user']
 
-        return self.build_segments(context)
+        try:
+            namespace = active_context['context']['namespace']
+        except KeyError:
+            namespace = 'default'
+
+        return self.build_segments(context, namespace)
 
 
 k8sstatus = with_docstring(

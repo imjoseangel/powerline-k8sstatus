@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='powerline-k8sstatus',
     description='A Powerline segment for showing the status of current Kubernetes context',
-    version='0.1.1',
+    version='0.1.2',
     keywords='powerline k8s kubernetes status prompt',
     license='MIT',
     author='Jose Angel Munoz',
