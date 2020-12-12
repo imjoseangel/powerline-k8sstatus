@@ -4,7 +4,7 @@
 from __future__ import (division, absolute_import, print_function,
                         unicode_literals)
 
-
+import codecs
 import glob
 import os
 from os.path import abspath, dirname, normpath
@@ -12,12 +12,9 @@ import shutil
 from setuptools import setup, Command
 
 
-here = normpath(abspath(dirname(__file__)))
-
-
 class CleanCommand(Command):
     """Custom clean command to tidy up the project root."""
-    CLEAN_FILES = './build ./dist ./*.pyc ./*.tgz src/*.egg-info'.split(' ')
+    CLEAN_FILES = './build ./dist ./*.pyc ./*.tgz ./*.egg-info'.split(' ')
 
     user_options = []
 
@@ -28,7 +25,7 @@ class CleanCommand(Command):
         pass
 
     def run(self):
-        global here
+        here = normpath(abspath(dirname(__file__)))
 
         for path_spec in self.CLEAN_FILES:
             # Make paths absolute and relative to this path
@@ -43,12 +40,27 @@ class CleanCommand(Command):
                 shutil.rmtree(path)
 
 
+def read(rel_path):
+    here = os.path.abspath(os.path.dirname(__file__))
+    with codecs.open(os.path.join(here, rel_path), 'r') as fp:
+        return fp.read()
+
+
+def get_version(rel_path):
+    for line in read(rel_path).splitlines():
+        if line.startswith('VERSION'):
+            delim = '?= '
+            return line.split(delim)[1]
+    else:
+        raise RuntimeError("Unable to find version string.")
+
+
 setup(
     name='powerline-k8sstatus',
     description='A Powerline segment for showing the status of current Kubernetes context',
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    version='1.0.2',
+    version=get_version("Makefile"),
     keywords='powerline k8s kubernetes status prompt',
     license='MIT',
     author='Jose Angel Munoz',
