@@ -27,6 +27,9 @@ class K8SStatusSegment(Segment):
 
     def __call__(self, pl, segment_info, create_watcher, show_namespace=False):
 
+        if segment_info['environ'].get('POWERLINE_K8SSTATUS') == "0":
+            return None
+
         try:
             contexts, active_context = config.list_kube_config_contexts()
         except config.config_exception.ConfigException:

@@ -5,7 +5,7 @@ setup(
     description='A Powerline segment for showing the status of current Kubernetes context',
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    version='1.0.1',
+    version='1.0.2',
     keywords='powerline k8s kubernetes status prompt',
     license='MIT',
     author='Jose Angel Munoz',
@@ -13,7 +13,7 @@ setup(
     url='https://github.com/imjoseangel/powerline-k8sstatus',
     packages=['powerline_k8sstatus'],
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',

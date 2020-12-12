@@ -11,9 +11,13 @@ It will show any or all of:
 * context name
 * namespace
 
-You can also (On development):
+
+You can also:
 
 * Toggle on or off the powerline-k8sstatus segment using an environment variable which can easily be mapped to a function in your ~/.profile file.
+
+(On development):
+
 * Define certain namespaces and/or contexts to be colored differently for alerting purposes. For instance, you can have your production namespaces or context showing up in bright red.
 
 ## Requirements
@@ -57,6 +61,20 @@ for example in `.config/powerline/themes/shell/default.json`:
 ```
 
 Reload powerline running `powerline-daemon --replace` to load the new settings.
+
+By default **powerline-k8sstatus** will display the Kubernetes status segment context. It can be disabled temporarily if the environment variable `POWERLINE_K8SSTATUS` is set to `0`. One way to do this would be with a simple function, such as putting this `k8sstatus` function in your `~/.bash_profile`:
+
+```bash
+k8sstatus() {
+    if [[ $POWERLINE_K8SSTATUS = "0" ]]; then
+        unset POWERLINE_K8SSTATUS
+    else
+        export POWERLINE_K8SSTATUS=0
+    fi
+}
+```
+
+Toggle showing your Kubernetes segment in powerline by just typing `k8sstatus` in your terminal
 
 ## License
 
