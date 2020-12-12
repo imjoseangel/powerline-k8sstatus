@@ -11,7 +11,7 @@ It will show any or all of:
 * context name
 * namespace
 
-You can also:
+You can also (On development):
 
 * Toggle on or off the powerline-k8sstatus segment using an environment variable which can easily be mapped to a function in your ~/.profile file.
 * Define certain namespaces and/or contexts to be colored differently for alerting purposes. For instance, you can have your production namespaces or context showing up in bright red.
@@ -36,7 +36,7 @@ for example in `.config/powerline/colorschemes/default.json`:
 ```json
 {
   "groups": {
-    "k8sstatus":           {"fg": "white",  "bg": "mediumorange", "attrs": []},
+    "k8sstatus":           {"fg": "white",  "bg": "solarized:red", "attrs": []},
     "k8sstatus_namespace": {"fg": "gray10", "bg": "darkestblue",  "attrs": []},
     "k8sstatus:divider":   {"fg": "white",  "bg": "mediumorange", "attrs": []}
   }
@@ -49,7 +49,7 @@ for example in `.config/powerline/themes/shell/default.json`:
 ```json
 {
     "function": "powerline_k8sstatus.k8sstatus",
-    "priority": 30,
+    "priority": 50,
     "args": {
       "show_namespace": true
     }
