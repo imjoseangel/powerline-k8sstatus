@@ -27,7 +27,7 @@ class K8SStatusSegment(Segment):
 
     def __call__(self, pl, segment_info, create_watcher, show_namespace=False):
 
-        if not segment_info['environ'].get('POWERLINE_K8SSTATUS') == "1":
+        if segment_info['environ'].get('POWERLINE_K8SSTATUS') == "0":
             return None
 
         try:
