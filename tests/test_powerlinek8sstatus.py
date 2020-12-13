@@ -133,3 +133,11 @@ def test_envvar_zero(pl, expected_symbol):
     output = powerlinek8s.k8sstatus(
         pl=pl, segment_info=segment_info, create_watcher='')
     assert output is None
+
+
+@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
+@pytest.mark.usefixtures('setup_mocked_context')
+def test_no_items(pl, expected_symbol):
+    output = powerlinek8s.k8sstatus(
+        pl=pl, segment_info=segment_info, create_watcher='')
+    assert output is None
