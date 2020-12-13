@@ -41,7 +41,9 @@ class CleanCommand(Command):
 
 
 def read(rel_path):
-    here = os.path.abspath(os.path.dirname(__file__))
+
+    here = normpath(abspath(dirname(__file__)))
+
     with codecs.open(os.path.join(here, rel_path), 'r') as fp:
         return fp.read()
 
