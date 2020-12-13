@@ -5,10 +5,10 @@ from __future__ import (division, absolute_import, print_function,
                         unicode_literals)
 
 import codecs
-import glob
+from glob import glob
 import os
 from os.path import abspath, dirname, normpath
-import shutil
+from shutil import rmtree
 from setuptools import setup, Command
 
 
@@ -30,7 +30,7 @@ class CleanCommand(Command):
 
         for path_spec in self.CLEAN_FILES:
             # Make paths absolute and relative to this path
-            abs_paths = glob.glob(os.path.normpath(
+            abs_paths = glob(os.path.normpath(
                 os.path.join(here, path_spec)))
             for path in [str(p) for p in abs_paths]:
                 if not path.startswith(here):
@@ -38,7 +38,7 @@ class CleanCommand(Command):
                     raise ValueError(
                         "%s is not a path inside %s" % (path, here))
                 print('removing %s' % os.path.relpath(path))
-                shutil.rmtree(path)
+                rmtree(path)
 
 
 def read(rel_path):
