@@ -25,6 +25,7 @@ class CleanCommand(Command):
         pass
 
     def run(self):
+
         here = normpath(abspath(dirname(__file__)))
 
         for path_spec in self.CLEAN_FILES:
