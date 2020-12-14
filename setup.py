@@ -14,7 +14,10 @@ from setuptools import setup, Command
 
 class CleanCommand(Command):
     """Custom clean command to tidy up the project root."""
-    CLEAN_FILES = './build ./dist ./*.pyc ./*.tgz ./*.egg-info'.split(' ')
+    CLEAN_FILES = ('./build', './dist', './*.pyc',
+                   './*.tgz', './*.egg-info', './.pytest_cache',
+                   '.benchmarks', './tests/__pycache__',
+                   './powerline_k8sstatus/__pycache__')
 
     user_options = []
 
