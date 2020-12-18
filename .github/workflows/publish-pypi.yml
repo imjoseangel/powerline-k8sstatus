@@ -1,4 +1,4 @@
-name: Release to PyPI
+name: Release
 on:
   release:
     types: [released]
