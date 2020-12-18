@@ -1,6 +1,7 @@
 # Powerline K8S Status
 
-[![codecov](https://codecov.io/gh/imjoseangel/powerline-k8sstatus/branch/devel/graph/badge.svg)](https://codecov.io/gh/imjoseangel/powerline-k8sstatus)
+[![codecov](https://codecov.io/gh/imjoseangel/powerline-k8sstatus/branch/devel/graph/badge.svg)](https://codecov.io/gh/imjoseangel/powerline-k8sstatus) ![Upload Python Package](https://github.com/imjoseangel/powerline-k8sstatus/workflows/Upload%20Python%20Package/badge.svg)
+
 
 A [Powerline][1] segment for showing the status of current Kubernetes context.
 
