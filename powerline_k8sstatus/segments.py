@@ -12,7 +12,8 @@ from kubernetes import config
 class K8SStatusSegment(Segment):
     divider_highlight_group = None
 
-    def build_segments(self, context, namespace):
+    @staticmethod
+    def build_segments(context, namespace):
         segments = [{'contents': (u'\U00002388 {}').format(
             context), 'highlight_groups': ['k8sstatus']}]
 
@@ -35,7 +36,7 @@ class K8SStatusSegment(Segment):
 
         try:
             contexts, active_context = config.list_kube_config_contexts()
-        except config.config_exception.ConfigException:
+        except TypeError:
             return
 
         if not contexts:
