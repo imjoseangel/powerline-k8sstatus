@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# pylint: disable=R1710,W0621,W0613,C0301
+
 import logging
 from kubernetes import config
 import pytest
