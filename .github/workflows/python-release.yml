@@ -38,12 +38,18 @@ jobs:
         release_name: Release ${{ steps.currenttag.outputs.tag }}
         body: |
           # Powerline K8SStatus
-          ![ReleaseBuildCollection](https://github.com/imjoseangel/ansiblecommon/workflows/ReleaseBuildCollection/badge.svg)
+          ![Upload Python Package](https://github.com/imjoseangel/powerline-k8sstatus/workflows/Upload%20Python%20Package/badge.svg)![CodeQL](https://github.com/imjoseangel/powerline-k8sstatus/workflows/CodeQL/badge.svg) [![codecov](https://codecov.io/gh/imjoseangel/powerline-k8sstatus/branch/devel/graph/badge.svg)](https://codecov.io/gh/imjoseangel/powerline-k8sstatus) ![Python package](https://github.com/imjoseangel/powerline-k8sstatus/workflows/Python%20package/badge.svg)
 
           Install with:
           ```sh
           pip install powerline-k8sstatus==${{ steps.currenttag.outputs.tag }}
           ```
+
+          ## License
+
+          Licensed under [the MIT License][1].
+
+          [1]: https://github.com/imjoseangel/powerline-k8sstatus/blob/devel/LICENSE
         draft: false
         prerelease: false
     - name: Upload Release Asset
