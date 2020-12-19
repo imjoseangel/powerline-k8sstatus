@@ -21,10 +21,13 @@ clean: ## Cleanup the project folders
 		$(info Make: Cleaning up things)
 		python setup.py clean
 
-build: clean ## Build and upload the project to Pypi
-		$(info Make: Build and upload the project to Pypi)
+build: clean ## Build the project
+		$(info Make: Build the project)
 		python setup.py clean
 		python setup.py sdist bdist_wheel
+
+upload: build ## Upload the project to Pypi
+		$(info Make: Upload the project to Pypi)
 		twine upload dist/*
 
 install: ## Install in editable mode
