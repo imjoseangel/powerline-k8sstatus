@@ -14,11 +14,11 @@ EXPECTED_NAMESPACE = {
 
 
 def mockk8sreturn():
-    return ([{'context': {'cluster': 'minikube', 'namespace': NAMESPACE, 'user': CONTEXT}, 'name': 'minikube'}], {'context': {'cluster': 'minikube', 'namespace': NAMESPACE, 'user': 'minikube'}, 'name': CONTEXT})
+    return ([{'context': {'cluster': 'minikube', 'namespace': NAMESPACE, 'user': 'minikube'}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'namespace': NAMESPACE, 'user': 'minikube'}, 'name': CONTEXT})
 
 
 def mockk8sdefaultreturn():
-    return ([{'context': {'cluster': 'minikube', 'namespace': 'default', 'user': CONTEXT}, 'name': 'minikube'}], {'context': {'cluster': 'minikube', 'namespace': 'default', 'user': 'minikube'}, 'name': CONTEXT})
+    return ([{'context': {'cluster': 'minikube', 'namespace': 'default', 'user': 'minikube'}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'namespace': 'default', 'user': 'minikube'}, 'name': CONTEXT})
 
 
 def mockk8snotnamespacereturn():
@@ -68,12 +68,6 @@ def setup_notnamespacemocked_context(monkeypatch):
 def setup_nonemocked_context(monkeypatch):
     monkeypatch.setattr(
         config, 'list_kube_config_contexts', mockk8snonereturn)
-
-
-@pytest.fixture
-def setup_missedmocked_context(monkeypatch):
-    monkeypatch.setattr(
-        config, 'list_kube_config_contexts', mockk8smissedfieldsreturn)
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
@@ -154,14 +148,6 @@ def test_envvar_zero(pl, expected_symbol):
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_mocked_context')
 def test_no_items(pl, expected_symbol):
-    output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, create_watcher='')
-    assert output is None
-
-
-@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
-@pytest.mark.usefixtures('setup_nonemocked_context', 'expected_symbol')
-def test_none_items(pl, segment_info):
     output = powerlinek8s.k8sstatus(
         pl=pl, segment_info=segment_info, create_watcher='')
     assert output is None

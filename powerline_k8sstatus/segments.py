@@ -38,6 +38,8 @@ class K8SStatusSegment(Segment):
             contexts, active_context = config.list_kube_config_contexts()
         except TypeError:
             return
+        except kubernetes.config.config_exception.ConfigException:
+            return
 
         if not contexts:
             return
