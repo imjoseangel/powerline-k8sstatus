@@ -53,6 +53,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: powerline-k8sstatus-${{ steps.currenttag.outputs.tag }}.tar.gz
+        asset_path: dist/powerline-k8sstatus-${{ steps.currenttag.outputs.tag }}.tar.gz
         asset_name: powerline-k8sstatus-${{ steps.currenttag.outputs.tag }}.tar.gz
         asset_content_type: application/tar+gzip
