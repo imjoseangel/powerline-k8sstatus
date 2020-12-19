@@ -161,7 +161,7 @@ def test_no_items(pl, expected_symbol):
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_nonemocked_context', 'expected_symbol')
-def test_none_items(pl, segment_info, expected_symbol):
+def test_none_items(pl, segment_info):
     output = powerlinek8s.k8sstatus(
         pl=pl, segment_info=segment_info, create_watcher='')
     assert output is None
