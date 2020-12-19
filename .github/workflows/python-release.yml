@@ -40,7 +40,12 @@ jobs:
         release_name: Release ${{ steps.currenttag.outputs.tag }}
         body: |
           # Powerline K8SStatus
-          ![Upload Python Package](https://github.com/imjoseangel/powerline-k8sstatus/workflows/Upload%20Python%20Package/badge.svg)![CodeQL](https://github.com/imjoseangel/powerline-k8sstatus/workflows/CodeQL/badge.svg) [![codecov](https://codecov.io/gh/imjoseangel/powerline-k8sstatus/branch/devel/graph/badge.svg)](https://codecov.io/gh/imjoseangel/powerline-k8sstatus) ![Python package](https://github.com/imjoseangel/powerline-k8sstatus/workflows/Python%20package/badge.svg)
+
+          ![CodeQL](https://github.com/imjoseangel/powerline-k8sstatus/workflows/CodeQL/badge.svg) [![codecov](https://codecov.io/gh/imjoseangel/powerline-k8sstatus/branch/devel/graph/badge.svg)](https://codecov.io/gh/imjoseangel/powerline-k8sstatus) ![Python package](https://github.com/imjoseangel/powerline-k8sstatus/workflows/Python%20package/badge.svg)
+
+          A [Powerline][2] segment for showing the status of current Kubernetes context.
+
+          By [imjoseangel][3]
 
           Install with:
           ```sh
@@ -52,6 +57,8 @@ jobs:
           Licensed under [the MIT License][1].
 
           [1]: https://github.com/imjoseangel/powerline-k8sstatus/blob/devel/LICENSE
+          [2]: https://powerline.readthedocs.org/en/master/
+          [3]: https://imjoseangel.github.io
         draft: false
         prerelease: false
     - name: Upload Release Asset
