@@ -1,4 +1,7 @@
-# vim:fileencoding=utf-8:noet
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# pylint: disable=R1710
+
 from __future__ import (unicode_literals, division,
                         absolute_import, print_function)
 
