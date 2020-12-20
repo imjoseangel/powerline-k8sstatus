@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=R1710,W0621,W0613,C0301
 
+from hypothesis import given, strategies as st
+import kubernetes.config.kube_config
 import logging
 from kubernetes import config
 import pytest
@@ -163,3 +165,33 @@ def test_none_items(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
         pl=pl, segment_info=segment_info, create_watcher='')
     assert output is None
+
+
+@given(config_file=st.none())
+def test_fuzz_list_kube_config_contexts(config_file):
+    kubernetes.config.kube_config.list_kube_config_contexts(
+        config_file=config_file)
+
+
+@given(
+    config_file=st.none(),
+    context=st.none(),
+    client_configuration=st.none(),
+    persist_config=st.booleans(),
+)
+def test_fuzz_load_kube_config(
+    config_file, context, client_configuration, persist_config
+):
+    kubernetes.config.kube_config.load_kube_config(
+        config_file=config_file,
+        context=context,
+        client_configuration=client_configuration,
+        persist_config=persist_config,
+    )
+
+
+@given(config_file=st.none(), context=st.none(), persist_config=st.booleans())
+def test_fuzz_new_client_from_config(config_file, context, persist_config):
+    kubernetes.config.kube_config.new_client_from_config(
+        config_file=config_file, context=context, persist_config=persist_config
+    )
