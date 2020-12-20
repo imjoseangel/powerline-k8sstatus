@@ -26,6 +26,7 @@ jobs:
         pip install pytest-cov
         pip install powerline-status
         pip install kubernetes
+        pip install hypothesis
         pytest --cov=./ --cov-report=xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1

@@ -29,6 +29,7 @@ jobs:
         python -m pip install pylint pytest
         pip install powerline-status
         pip install kubernetes
+        pip install hypothesis
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with pylint
       run: |

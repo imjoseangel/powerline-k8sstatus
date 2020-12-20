@@ -19,7 +19,7 @@ class CleanCommand(Command):
                    './*.tgz', './*.egg-info', './.pytest_cache',
                    '.benchmarks', './tests/__pycache__',
                    './powerline_k8sstatus/__pycache__',
-                   './__pycache__')
+                   './__pycache__', './.hypothesis')
 
     user_options = []
 
