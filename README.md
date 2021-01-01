@@ -2,7 +2,6 @@
 
 ![CodeQL](https://github.com/imjoseangel/powerline-k8sstatus/workflows/CodeQL/badge.svg) [![codecov](https://codecov.io/gh/imjoseangel/powerline-k8sstatus/branch/devel/graph/badge.svg)](https://codecov.io/gh/imjoseangel/powerline-k8sstatus) ![Python package](https://github.com/imjoseangel/powerline-k8sstatus/workflows/Python%20package/badge.svg)
 
-
 A [Powerline][1] segment for showing the status of current Kubernetes context.
 
 By [imjoseangel][2]
@@ -14,14 +13,11 @@ It will show any or all of:
 * context name
 * namespace
 
-
 You can also:
 
 * Toggle on or off the powerline-k8sstatus segment using an environment variable which can easily be mapped to a function in your ~/.profile file.
 
-(On development):
-
-* Define certain namespaces and/or contexts to be colored differently for alerting purposes. For instance, you can have your production namespaces or context showing up in bright red.
+* Define certain contexts to be colored differently for alerting purposes. For instance, you can have your production context showing up in bright red.
 
 ## Requirements
 
@@ -43,9 +39,26 @@ for example in `.config/powerline/colorschemes/default.json`:
 ```json
 {
   "groups": {
-    "k8sstatus":           {"fg": "white",  "bg": "solarized:red", "attrs": []},
-    "k8sstatus_namespace": {"fg": "gray10", "bg": "darkestblue",  "attrs": []},
-    "k8sstatus:divider":   {"fg": "white",  "bg": "mediumorange", "attrs": []}
+    "k8sstatus": {
+      "fg": "brightestorange",
+      "bg": "gray2",
+      "attrs": []
+    },
+    "k8sstatus:alert": {
+      "fg": "white",
+      "bg": "solarized:red",
+      "attrs": []
+    },
+    "k8sstatus_namespace": {
+      "fg": "gray10",
+      "bg": "darkestblue",
+      "attrs": []
+    },
+    "k8sstatus:divider": {
+      "fg": "white",
+      "bg": "mediumorange",
+      "attrs": []
+    }
   }
 }
 ```
@@ -55,13 +68,19 @@ for example in `.config/powerline/themes/shell/default.json`:
 
 ```json
 {
-    "function": "powerline_k8sstatus.k8sstatus",
-    "priority": 50,
-    "args": {
-      "show_namespace": true
-    }
-}
+  "function": "powerline_k8sstatus.k8sstatus",
+  "priority": 50,
+  "args": {
+    "show_namespace": true,
+    "alert_context": [
+      "minikube",
+      "production"
+    ]
+  }
+},
 ```
+
+Context names added to the `alert_context` arguments will be outlined in the segment by a different colour.
 
 Reload powerline running `powerline-daemon --replace` to load the new settings.
 
