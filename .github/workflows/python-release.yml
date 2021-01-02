@@ -41,7 +41,7 @@ jobs:
         body: |
           # Powerline K8SStatus
 
-          ![CodeQL](https://github.com/imjoseangel/powerline-k8sstatus/workflows/CodeQL/badge.svg) [![codecov](https://codecov.io/gh/imjoseangel/powerline-k8sstatus/branch/devel/graph/badge.svg)](https://codecov.io/gh/imjoseangel/powerline-k8sstatus) ![Python package](https://github.com/imjoseangel/powerline-k8sstatus/workflows/Python%20package/badge.svg)
+          [![CodeQL](https://github.com/imjoseangel/powerline-k8sstatus/workflows/CodeQL/badge.svg)](https://github.com/imjoseangel/powerline-k8sstatus/security/code-scanning) [![codecov](https://codecov.io/gh/imjoseangel/powerline-k8sstatus/branch/devel/graph/badge.svg)](https://codecov.io/gh/imjoseangel/powerline-k8sstatus) [![Python package](https://github.com/imjoseangel/powerline-k8sstatus/workflows/Python%20package/badge.svg)](https://pypi.org/project/powerline-k8sstatus/${{ steps.currenttag.outputs.tag }})
 
           A [Powerline][2] segment for showing the status of current Kubernetes context.
 
