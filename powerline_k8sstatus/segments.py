@@ -16,20 +16,24 @@ class K8SStatusSegment(Segment):
     divider_highlight_group = None
 
     @staticmethod
-    def build_segments(context, namespace):
+    def build_segments(context, namespace, alert):
         segments = [{'contents': (u'\U00002388 {}').format(
-            context), 'highlight_groups': ['k8sstatus']}]
+            context), 'highlight_groups': [alert]}]
 
         if namespace and namespace.lower() != 'default':
             segments.append({
                 'contents': namespace,
-                'highlight_groups': ['k8sstatus_namespace', 'k8sstatus'],
+                'highlight_groups': ['k8sstatus_namespace', alert],
                 'divider_highlight_group': 'k8sstatus:divider'
             })
 
         return segments
 
-    def __call__(self, pl, segment_info, create_watcher, show_namespace=False):
+    def __call__(self, pl, segment_info, create_watcher=None, alert_context: list = None,
+                 show_namespace=False):
+
+        if alert_context is None:
+            alert_context = []
 
         try:
             if segment_info['environ'].get('POWERLINE_K8SSTATUS') == "0":
@@ -48,6 +52,10 @@ class K8SStatusSegment(Segment):
             return
 
         context = active_context['name']
+        contextstatus = "k8sstatus"
+
+        if context in alert_context:
+            contextstatus = "k8sstatus:alert"
 
         if show_namespace:
             try:
@@ -57,7 +65,7 @@ class K8SStatusSegment(Segment):
         else:
             namespace = 'default'
 
-        return self.build_segments(context, namespace)
+        return self.build_segments(context, namespace, contextstatus)
 
 
 k8sstatus = with_docstring(

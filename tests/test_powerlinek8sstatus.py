@@ -76,49 +76,49 @@ def setup_nonemocked_context(monkeypatch):
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_namespacemocked_context', 'expected_symbol')
-def test_cluster_notnamespace(pl, segment_info, expected_symbol):
+def test_context_notnamespace(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, create_watcher='')
+        pl=pl, segment_info=segment_info)
     assert output == [expected_symbol]
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_namespacemocked_context', 'expected_symbol')
-def test_cluster_namespace(pl, segment_info, expected_symbol):
+def test_context_namespace(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, create_watcher='', show_namespace=True)
+        pl=pl, segment_info=segment_info, show_namespace=True)
     assert output == [expected_symbol, EXPECTED_NAMESPACE]
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_mocked_context', 'expected_symbol')
-def test_cluster_notnamespacedefault(pl, segment_info, expected_symbol):
+def test_context_notnamespacedefault(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, create_watcher='')
+        pl=pl, segment_info=segment_info)
     assert output == [expected_symbol]
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_mocked_context', 'expected_symbol')
-def test_cluster_notnamespacedefaulttrue(pl, segment_info, expected_symbol):
+def test_context_notnamespacedefaulttrue(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, create_watcher='', show_namespace=True)
+        pl=pl, segment_info=segment_info, show_namespace=True)
     assert output == [expected_symbol]
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_notnamespacemocked_context', 'expected_symbol')
-def test_cluster_notnamespacdefined(pl, segment_info, expected_symbol):
+def test_context_notnamespacdefined(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, create_watcher='')
+        pl=pl, segment_info=segment_info)
     assert output == [expected_symbol]
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_notnamespacemocked_context', 'expected_symbol')
-def test_cluster_notnamespacedefinedtrue(pl, segment_info, expected_symbol):
+def test_context_notnamespacedefinedtrue(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, create_watcher='', show_namespace=True)
+        pl=pl, segment_info=segment_info, show_namespace=True)
     assert output == [expected_symbol]
 
 
@@ -127,7 +127,7 @@ def test_cluster_notnamespacedefinedtrue(pl, segment_info, expected_symbol):
 def test_envvar_notzero(pl, expected_symbol):
     segment_info = {'environ': {'POWERLINE_K8SSTATUS': '1'}}
     output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, create_watcher='')
+        pl=pl, segment_info=segment_info)
     assert output == [expected_symbol]
 
 
@@ -136,7 +136,7 @@ def test_envvar_notzero(pl, expected_symbol):
 def test_envvar_notzeroempty(pl, expected_symbol):
     segment_info = {'environ': {}}
     output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, create_watcher='')
+        pl=pl, segment_info=segment_info)
     assert output == [expected_symbol]
 
 
@@ -145,7 +145,7 @@ def test_envvar_notzeroempty(pl, expected_symbol):
 def test_envvar_zero(pl, expected_symbol):
     segment_info = {'environ': {'POWERLINE_K8SSTATUS': '0'}}
     output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, create_watcher='')
+        pl=pl, segment_info=segment_info)
     assert output is None
 
 
@@ -153,7 +153,7 @@ def test_envvar_zero(pl, expected_symbol):
 @pytest.mark.usefixtures('setup_mocked_context')
 def test_no_items(pl, expected_symbol):
     output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, create_watcher='')
+        pl=pl, segment_info=segment_info)
     assert output is None
 
 
@@ -161,5 +161,14 @@ def test_no_items(pl, expected_symbol):
 @pytest.mark.usefixtures('setup_nonemocked_context', 'expected_symbol')
 def test_none_items(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, create_watcher='')
+        pl=pl, segment_info=segment_info)
     assert output is None
+
+
+@pytest.mark.parametrize('expected_symbol', ['k8sstatus:alert'], indirect=True)
+@pytest.mark.usefixtures('setup_mocked_context', 'expected_symbol')
+def test_context_defaultalert(pl, segment_info, expected_symbol):
+    output = powerlinek8s.k8sstatus(
+        pl=pl, segment_info=segment_info,
+        alert_context=['minikube'])
+    assert output == [expected_symbol]

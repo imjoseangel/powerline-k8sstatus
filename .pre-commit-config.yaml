@@ -42,6 +42,13 @@ repos:
         types: [text]
         exclude: ^ci/ansi$  # 3rd-party script
 
+      - id: pylint
+        name: pylint
+        entry: pylint
+        language: python
+        types: [python]
+        exclude: tests/functional/|tests/input|tests/extensions/data|tests/regrtest_data/|tests/data/|doc/
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: master
     hooks:
