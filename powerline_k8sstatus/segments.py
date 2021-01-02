@@ -29,7 +29,7 @@ class K8SStatusSegment(Segment):
 
         return segments
 
-    def __call__(self, pl, segment_info, create_watcher, alert_context: list = None,
+    def __call__(self, pl, segment_info, create_watcher=None, alert_context: list = None,
                  show_namespace=False):
 
         if alert_context is None:
