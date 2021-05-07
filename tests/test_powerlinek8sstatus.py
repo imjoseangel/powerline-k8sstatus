@@ -10,23 +10,28 @@ import powerline_k8sstatus as powerlinek8s
 
 CONTEXT = 'minikube'
 NAMESPACE = 'tools'
+USER = 'minikube'
 EXPECTED_NAMESPACE = {
     'contents': NAMESPACE,
     'highlight_groups': ['k8sstatus_namespace', 'k8sstatus'],
     'divider_highlight_group': 'k8sstatus:divider'
 }
+EXPECTED_USER = {
+    'contents': USER,
+    'divider_highlight_group': 'k8sstatus:divider'
+}
 
 
 def mockk8sreturn():
-    return ([{'context': {'cluster': 'minikube', 'namespace': NAMESPACE, 'user': 'minikube'}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'namespace': NAMESPACE, 'user': 'minikube'}, 'name': CONTEXT})
+    return ([{'context': {'cluster': 'minikube', 'namespace': NAMESPACE, 'user': USER}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'namespace': NAMESPACE, 'user': USER}, 'name': CONTEXT})
 
 
 def mockk8sdefaultreturn():
-    return ([{'context': {'cluster': 'minikube', 'namespace': 'default', 'user': 'minikube'}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'namespace': 'default', 'user': 'minikube'}, 'name': CONTEXT})
+    return ([{'context': {'cluster': 'minikube', 'namespace': 'default', 'user': USER}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'namespace': 'default', 'user': USER}, 'name': CONTEXT})
 
 
 def mockk8snotnamespacereturn():
-    return ([{'context': {'cluster': 'minikube', 'user': 'minikube'}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'user': 'minikube'}, 'name': CONTEXT})
+    return ([{'context': {'cluster': 'minikube', 'user': USER}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'user': USER}, 'name': CONTEXT})
 
 
 def mockk8snonereturn():
