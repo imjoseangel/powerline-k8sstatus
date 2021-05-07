@@ -18,6 +18,7 @@ EXPECTED_NAMESPACE = {
 }
 EXPECTED_USER = {
     'contents': USER,
+    'highlight_groups': ['k8sstatus_user'],
     'divider_highlight_group': 'k8sstatus:divider'
 }
 

@@ -30,6 +30,7 @@ class K8SStatusSegment(Segment):
         if user and user.lower():
             segments.append({
                 'contents': user,
+                'highlight_groups': ['k8sstatus_user'],
                 'divider_highlight_group': 'k8sstatus:divider'
             })
 

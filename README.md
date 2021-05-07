@@ -12,6 +12,7 @@ It will show any or all of:
 
 * context name
 * namespace
+* username
 
 You can also:
 
@@ -54,6 +55,11 @@ for example in `.config/powerline/colorschemes/default.json`:
       "bg": "darkestblue",
       "attrs": []
     },
+    "k8sstatus_user": {
+    "fg": "white",
+    "bg": "green",
+    "attrs": []
+    },
     "k8sstatus:divider": {
       "fg": "white",
       "bg": "mediumorange",
@@ -72,6 +78,7 @@ for example in `.config/powerline/themes/shell/default.json`:
   "priority": 50,
   "args": {
     "show_namespace": true,
+    "show_user": true,
     "alert_context": [
       "minikube",
       "production"
