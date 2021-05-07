@@ -73,10 +73,7 @@ class K8SStatusSegment(Segment):
             namespace = 'default'
 
         if show_user:
-            try:
-                user = active_context['context']['user']
-            except KeyError:
-                user = None
+            user = active_context['context']['user']
         else:
             user = None
 
