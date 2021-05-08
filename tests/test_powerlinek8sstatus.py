@@ -10,23 +10,29 @@ import powerline_k8sstatus as powerlinek8s
 
 CONTEXT = 'minikube'
 NAMESPACE = 'tools'
+USER = 'minikube'
 EXPECTED_NAMESPACE = {
     'contents': NAMESPACE,
     'highlight_groups': ['k8sstatus_namespace', 'k8sstatus'],
     'divider_highlight_group': 'k8sstatus:divider'
 }
+EXPECTED_USER = {
+    'contents': USER,
+    'highlight_groups': ['k8sstatus_user'],
+    'divider_highlight_group': 'k8sstatus:divider'
+}
 
 
 def mockk8sreturn():
-    return ([{'context': {'cluster': 'minikube', 'namespace': NAMESPACE, 'user': 'minikube'}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'namespace': NAMESPACE, 'user': 'minikube'}, 'name': CONTEXT})
+    return ([{'context': {'cluster': 'minikube', 'namespace': NAMESPACE, 'user': USER}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'namespace': NAMESPACE, 'user': USER}, 'name': CONTEXT})
 
 
 def mockk8sdefaultreturn():
-    return ([{'context': {'cluster': 'minikube', 'namespace': 'default', 'user': 'minikube'}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'namespace': 'default', 'user': 'minikube'}, 'name': CONTEXT})
+    return ([{'context': {'cluster': 'minikube', 'namespace': 'default', 'user': USER}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'namespace': 'default', 'user': USER}, 'name': CONTEXT})
 
 
 def mockk8snotnamespacereturn():
-    return ([{'context': {'cluster': 'minikube', 'user': 'minikube'}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'user': 'minikube'}, 'name': CONTEXT})
+    return ([{'context': {'cluster': 'minikube', 'user': USER}, 'name': CONTEXT}], {'context': {'cluster': 'minikube', 'user': USER}, 'name': CONTEXT})
 
 
 def mockk8snonereturn():
@@ -88,6 +94,22 @@ def test_context_namespace(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
         pl=pl, segment_info=segment_info, show_namespace=True)
     assert output == [expected_symbol, EXPECTED_NAMESPACE]
+
+
+@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
+@pytest.mark.usefixtures('setup_namespacemocked_context', 'expected_symbol')
+def test_context_user(pl, segment_info, expected_symbol):
+    output = powerlinek8s.k8sstatus(
+        pl=pl, segment_info=segment_info, show_user=True)
+    assert output == [expected_symbol, EXPECTED_USER]
+
+
+@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
+@pytest.mark.usefixtures('setup_namespacemocked_context', 'expected_symbol')
+def test_context_usernamespace(pl, segment_info, expected_symbol):
+    output = powerlinek8s.k8sstatus(
+        pl=pl, segment_info=segment_info, show_namespace=True, show_user=True)
+    assert output == [expected_symbol, EXPECTED_NAMESPACE, EXPECTED_USER]
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)

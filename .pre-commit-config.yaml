@@ -50,7 +50,7 @@ repos:
         exclude: tests/functional/|tests/input|tests/extensions/data|tests/regrtest_data/|tests/data/|doc/
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: master
+    rev: v3.4.0
     hooks:
       - id: check-added-large-files
       - id: check-byte-order-marker
@@ -61,7 +61,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: master
+    rev: v2.17.6
     hooks:
       - id: commitizen
         stages: [commit-msg]
