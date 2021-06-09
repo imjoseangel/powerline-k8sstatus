@@ -192,5 +192,5 @@ def test_none_items(pl, segment_info, expected_symbol):
 def test_context_defaultalert(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
         pl=pl, segment_info=segment_info,
-        alert_context=['minikube'])
+        context_alert=['minikube'])
     assert output == [expected_symbol]
