@@ -79,7 +79,7 @@ for example in `.config/powerline/themes/shell/default.json`:
   "args": {
     "show_namespace": true,
     "show_user": true,
-    "alert_context": [
+    "context_alert": [
       "minikube",
       "production"
     ]
