@@ -87,7 +87,7 @@ for example in `.config/powerline/themes/shell/default.json`:
 },
 ```
 
-Context names added to the `alert_context` arguments will be outlined in the segment by a different colour.
+Context names added to the `context_alert` arguments will be outlined in the segment by a different colour.
 
 Reload powerline running `powerline-daemon --replace` to load the new settings.
 
