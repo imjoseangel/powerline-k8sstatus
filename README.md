@@ -105,6 +105,10 @@ k8sstatus() {
 
 Toggle showing your Kubernetes segment in powerline by just typing `k8sstatus` in your terminal
 
+## Authors
+
+Originally created by [@imjoseangel](http://github.com/imjoseangel)
+
 ## License
 
 Licensed under [the MIT License][3].
