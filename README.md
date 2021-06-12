@@ -63,9 +63,9 @@ for example in `.config/powerline/colorschemes/default.json`:
       "attrs": []
     },
     "k8sstatus_user": {
-    "fg": "white",
-    "bg": "green",
-    "attrs": []
+      "fg": "white",
+      "bg": "green",
+      "attrs": []
     },
     "k8sstatus:divider": {
       "fg": "white",
