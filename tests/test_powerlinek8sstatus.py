@@ -11,11 +11,19 @@ import powerline_k8sstatus as powerlinek8s
 CONTEXT = 'minikube'
 NAMESPACE = 'tools'
 USER = 'minikube'
+
 EXPECTED_NAMESPACE = {
     'contents': NAMESPACE,
     'highlight_groups': ['k8sstatus_namespace', 'k8sstatus'],
     'divider_highlight_group': 'k8sstatus:divider'
 }
+
+EXPECTED_NAMESPACE_ALERT = {
+    'contents': NAMESPACE,
+    'highlight_groups': ['k8sstatus_namespace:alert', 'k8sstatus'],
+    'divider_highlight_group': 'k8sstatus:divider'
+}
+
 EXPECTED_USER = {
     'contents': USER,
     'highlight_groups': ['k8sstatus_user'],
@@ -194,3 +202,12 @@ def test_context_defaultalert(pl, segment_info, expected_symbol):
         pl=pl, segment_info=segment_info,
         context_alert=['minikube'])
     assert output == [expected_symbol]
+
+
+@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
+@pytest.mark.usefixtures('setup_namespacemocked_context', 'expected_symbol')
+def test_namespace_defaultalert(pl, segment_info, expected_symbol):
+    output = powerlinek8s.k8sstatus(
+        pl=pl, segment_info=segment_info, show_namespace=True,
+        namespace_alert=['tools'])
+    assert output == [expected_symbol, EXPECTED_NAMESPACE_ALERT]

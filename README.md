@@ -18,7 +18,7 @@ You can also:
 
 * Toggle on or off the powerline-k8sstatus segment using an environment variable which can easily be mapped to a function in your ~/.profile file.
 
-* Define certain contexts to be colored differently for alerting purposes. For instance, you can have your production context showing up in bright red.
+* Define certain contexts or namespaces to be colored differently for alerting purposes. For instance, you can have your production context or kube-system namespace showing up in bright red or solarized yellow respectively.
 
 ## Requirements
 
@@ -48,11 +48,18 @@ for example in `.config/powerline/colorschemes/default.json`:
     "k8sstatus:alert": {
       "fg": "white",
       "bg": "solarized:red",
-      "attrs": []
+      "attrs": [
+        "bold"
+      ]
     },
     "k8sstatus_namespace": {
       "fg": "gray10",
       "bg": "darkestblue",
+      "attrs": []
+    },
+    "k8sstatus_namespace:alert": {
+      "fg": "darkestred",
+      "bg": "solarized:yellow",
       "attrs": []
     },
     "k8sstatus_user": {
@@ -82,12 +89,17 @@ for example in `.config/powerline/themes/shell/default.json`:
     "context_alert": [
       "minikube",
       "production"
+    ],
+    "namespace_alert": [
+      "kube-system",
+      "production"
     ]
   }
-},
+}
 ```
 
-Context names added to the `context_alert` arguments will be outlined in the segment by a different colour.
+* Context names added to the `context_alert` arguments will be outlined in the segment by a different colour.
+* Namespace names added to the `namespace_alert` arguments will be outlined in the segment by a different colour. Note that `default` namespace won't be shown and as result not colorized.
 
 Reload powerline running `powerline-daemon --replace` to load the new settings.
 

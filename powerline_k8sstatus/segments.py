@@ -16,14 +16,14 @@ class K8SStatusSegment(Segment):
     divider_highlight_group = None
 
     @staticmethod
-    def build_segments(context, namespace, user, contextalert):
+    def build_segments(context, namespace, user, contextalert, namespacealert):
         segments = [{'contents': (u'\U00002388 {}').format(
             context), 'highlight_groups': [contextalert]}]
 
         if namespace and namespace.lower() != 'default':
             segments.append({
                 'contents': namespace,
-                'highlight_groups': ['k8sstatus_namespace', contextalert],
+                'highlight_groups': [namespacealert, contextalert],
                 'divider_highlight_group': 'k8sstatus:divider'
             })
 
@@ -37,10 +37,13 @@ class K8SStatusSegment(Segment):
         return segments
 
     def __call__(self, pl, segment_info, create_watcher=None, context_alert: list = None,
-                 show_namespace=False, show_user=False):
+                 namespace_alert: list = None, show_namespace=False, show_user=False):
 
         if context_alert is None:
             context_alert = []
+
+        if namespace_alert is None:
+            namespace_alert = []
 
         try:
             if segment_info['environ'].get('POWERLINE_K8SSTATUS') == "0":
@@ -64,9 +67,14 @@ class K8SStatusSegment(Segment):
         if context in context_alert:
             contextstatus = "k8sstatus:alert"
 
+        namespacestatus = "k8sstatus_namespace"
+
         if show_namespace:
             try:
                 namespace = active_context['context']['namespace']
+                if namespace in namespace_alert:
+                    namespacestatus = "k8sstatus_namespace:alert"
+
             except KeyError:
                 namespace = 'default'
         else:
@@ -77,7 +85,7 @@ class K8SStatusSegment(Segment):
         else:
             user = None
 
-        return self.build_segments(context, namespace, user, contextstatus)
+        return self.build_segments(context, namespace, user, contextstatus, namespacestatus)
 
 
 k8sstatus = with_docstring(
