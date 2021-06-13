@@ -50,14 +50,14 @@ repos:
         exclude: tests/functional/|tests/input|tests/extensions/data|tests/regrtest_data/|tests/data/|doc/
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v4.0.1
     hooks:
       - id: check-added-large-files
-      - id: check-byte-order-marker
       - id: check-case-conflict
       - id: check-executables-have-shebangs
       - id: detect-private-key
       - id: end-of-file-fixer
+      - id: fix-byte-order-marker
       - id: trailing-whitespace
 
   - repo: https://github.com/commitizen-tools/commitizen
