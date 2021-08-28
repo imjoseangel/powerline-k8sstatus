@@ -17,7 +17,7 @@ class K8SStatusSegment(Segment):
 
     @staticmethod
     def build_segments(context, namespace, user, contextalert, namespacealert):
-        segments = [{'contents': (u'\U00002388 {}').format(
+        segments = [{'contents': ('\U00002388 {}').format(
             context), 'highlight_groups': [contextalert]}]
 
         if namespace and namespace.lower() != 'default':
