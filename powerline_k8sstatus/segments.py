@@ -17,7 +17,7 @@ class K8SStatusSegment(Segment):
     divider_highlight_group = None
 
     @staticmethod
-    def build_segments(context, namespace, user, contextalert, namespacealert):
+    def build_segments(context, namespace, user, version, contextalert, namespacealert):
         segments = [{'contents': ('\U00002388 {}').format(
             context), 'highlight_groups': [contextalert]}]
 
@@ -32,6 +32,13 @@ class K8SStatusSegment(Segment):
             segments.append({
                 'contents': user,
                 'highlight_groups': ['k8sstatus_user'],
+                'divider_highlight_group': 'k8sstatus:divider'
+            })
+
+        if version and version.lower():
+            segments.append({
+                'contents': version,
+                'highlight_groups': ['k8sstatus_version'],
                 'divider_highlight_group': 'k8sstatus:divider'
             })
 
