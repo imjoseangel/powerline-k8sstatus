@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# pylint: disable=R1710
+# pylint: disable=R1710, R0914, E1121
 
 from __future__ import (unicode_literals, division,
                         absolute_import, print_function)
 
 from powerline.segments import Segment, with_docstring
 from powerline.theme import requires_segment_info, requires_filesystem_watcher
-from kubernetes import config
+from kubernetes import client, config
+from urllib3.exceptions import MaxRetryError
 
 
 @requires_filesystem_watcher
@@ -37,7 +38,8 @@ class K8SStatusSegment(Segment):
         return segments
 
     def __call__(self, pl, segment_info, create_watcher=None, context_alert: list = None,
-                 namespace_alert: list = None, show_namespace=False, show_user=False):
+                 namespace_alert: list = None, show_namespace=False, show_user=False,
+                 show_version=False):
 
         if context_alert is None:
             context_alert = []
@@ -53,9 +55,8 @@ class K8SStatusSegment(Segment):
 
         try:
             contexts, active_context = config.list_kube_config_contexts()
-        except TypeError:
-            return
-        except config.config_exception.ConfigException:
+            config.load_kube_config()
+        except (TypeError, config.config_exception.ConfigException):
             return
 
         if not contexts:
@@ -85,7 +86,14 @@ class K8SStatusSegment(Segment):
         else:
             user = None
 
-        return self.build_segments(context, namespace, user, contextstatus, namespacestatus)
+        if show_version:
+            try:
+                version = client.VersionApi().get_code().git_version
+            except (ConnectionRefusedError, MaxRetryError):
+                version = None
+
+        return self.build_segments(context, namespace, user, version,
+                                   contextstatus, namespacestatus)
 
 
 k8sstatus = with_docstring(
