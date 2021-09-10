@@ -88,11 +88,11 @@ class K8SStatusSegment(Segment):
         else:
             namespace = 'default'
 
+        user = None
         if show_user:
             user = active_context['context']['user']
-        else:
-            user = None
 
+        version = None
         if show_version:
             try:
                 version = client.VersionApi().get_code().git_version
