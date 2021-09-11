@@ -49,7 +49,7 @@ def mockk8snonereturn():
 
 @pytest.fixture
 def expected_symbol(request):
-    return {'contents': (u'\U00002388 {}').format(
+    return {'contents': ('\U00002388 {}').format(
         CONTEXT), 'highlight_groups': [request.param]}
 
 
@@ -68,24 +68,28 @@ def segment_info():
 @pytest.fixture
 def setup_namespacemocked_context(monkeypatch):
     monkeypatch.setattr(config, 'list_kube_config_contexts', mockk8sreturn)
+    monkeypatch.setattr(config, 'load_kube_config', mockk8snonereturn)
 
 
 @pytest.fixture
 def setup_mocked_context(monkeypatch):
     monkeypatch.setattr(config, 'list_kube_config_contexts',
                         mockk8sdefaultreturn)
+    monkeypatch.setattr(config, 'load_kube_config', mockk8snonereturn)
 
 
 @pytest.fixture
 def setup_notnamespacemocked_context(monkeypatch):
     monkeypatch.setattr(
         config, 'list_kube_config_contexts', mockk8snotnamespacereturn)
+    monkeypatch.setattr(config, 'load_kube_config', mockk8snonereturn)
 
 
 @pytest.fixture
 def setup_nonemocked_context(monkeypatch):
     monkeypatch.setattr(
         config, 'list_kube_config_contexts', mockk8snonereturn)
+    monkeypatch.setattr(config, 'load_kube_config', mockk8snonereturn)
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)

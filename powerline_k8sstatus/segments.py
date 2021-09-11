@@ -8,6 +8,7 @@ from __future__ import (unicode_literals, division,
 from powerline.segments import Segment, with_docstring
 from powerline.theme import requires_segment_info, requires_filesystem_watcher
 from kubernetes import config
+from kubernetes.config.config_exception import ConfigException
 from kubernetes.client import VersionApi
 from urllib3.exceptions import MaxRetryError
 
@@ -97,7 +98,7 @@ class K8SStatusSegment(Segment):
             try:
                 config.load_kube_config()
                 version = VersionApi().get_code().git_version
-            except (ConnectionRefusedError, MaxRetryError, config.config_exception.ConfigException):
+            except (ConnectionRefusedError, MaxRetryError, ConfigException):
                 version = None
 
         return self.build_segments(context, namespace, user, version,
