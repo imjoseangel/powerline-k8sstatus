@@ -13,6 +13,7 @@ It will show any or all of:
 * context name
 * namespace
 * username
+* controlplane version
 
 You can also:
 
@@ -67,6 +68,11 @@ for example in `.config/powerline/colorschemes/default.json`:
       "bg": "green",
       "attrs": []
     },
+    "k8sstatus_version": {
+      "fg": "white",
+      "bg": "mediumorange",
+      "attrs": []
+    },
     "k8sstatus:divider": {
       "fg": "white",
       "bg": "mediumorange",
@@ -86,6 +92,7 @@ for example in `.config/powerline/themes/shell/default.json`:
   "args": {
     "show_namespace": true,
     "show_user": true,
+    "show_version": true,
     "context_alert": [
       "minikube",
       "production"
