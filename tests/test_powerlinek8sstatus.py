@@ -156,14 +156,6 @@ def test_context_versionusernamespace(pl, segment_info, expected_symbol):
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
-@pytest.mark.usefixtures('setup_nonemocked_context', 'expected_symbol')
-def test_context_versionnone(pl, segment_info, expected_symbol):
-    output = powerlinek8s.k8sstatus(
-        pl=pl, segment_info=segment_info, show_version=True)
-    assert output is None
-
-
-@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_mocked_context', 'expected_symbol')
 def test_context_notnamespacedefault(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
