@@ -7,11 +7,10 @@ from kubernetes import config
 import pytest
 import powerline_k8sstatus as powerlinek8s
 
-
 CONTEXT = 'minikube'
 NAMESPACE = 'tools'
 USER = 'minikube'
-VERSION = 'v1.20.9'
+VERSION = 'v1.22.1'
 
 EXPECTED_NAMESPACE = {
     'contents': NAMESPACE,
@@ -54,18 +53,6 @@ def mockk8snonereturn():
     return None
 
 
-def mockversionreturn():
-    return ({'build_date': '2021-07-16T01:10:02Z',
-             'compiler': 'gc',
-             'git_commit': '7a576bc3935a6b555e33346fd73ad77c925e9e4a',
-             'git_tree_state': 'clean',
-             'git_version': 'v1.20.9',
-             'go_version': 'go1.15.14',
-             'major': '1',
-             'minor': '20',
-             'platform': 'linux/amd64'})
-
-
 @pytest.fixture
 def expected_symbol(request):
     return {'contents': ('\U00002388 {}').format(
@@ -87,21 +74,18 @@ def segment_info():
 @pytest.fixture
 def setup_namespacemocked_context(monkeypatch):
     monkeypatch.setattr(config, 'list_kube_config_contexts', mockk8sreturn)
-    monkeypatch.setattr(config, 'load_kube_config', mockk8snonereturn)
 
 
 @pytest.fixture
 def setup_mocked_context(monkeypatch):
     monkeypatch.setattr(config, 'list_kube_config_contexts',
                         mockk8sdefaultreturn)
-    monkeypatch.setattr(config, 'load_kube_config', mockk8snonereturn)
 
 
 @pytest.fixture
 def setup_notnamespacemocked_context(monkeypatch):
     monkeypatch.setattr(
         config, 'list_kube_config_contexts', mockk8snotnamespacereturn)
-    monkeypatch.setattr(config, 'load_kube_config', mockk8snonereturn)
 
 
 @pytest.fixture
@@ -133,6 +117,14 @@ def test_context_user(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
         pl=pl, segment_info=segment_info, show_user=True)
     assert output == [expected_symbol, EXPECTED_USER]
+
+
+@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
+@pytest.mark.usefixtures('setup_namespacemocked_context', 'expected_symbol')
+def test_context_version(pl, segment_info, expected_symbol):
+    output = powerlinek8s.k8sstatus(
+        pl=pl, segment_info=segment_info, show_version=True)
+    assert output == [expected_symbol, EXPECTED_VERSION]
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
