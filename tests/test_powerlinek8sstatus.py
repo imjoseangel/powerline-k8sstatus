@@ -12,7 +12,7 @@ from urllib3.exceptions import MaxRetryError
 CONTEXT = 'minikube'
 NAMESPACE = 'tools'
 USER = 'minikube'
-VERSION = 'v1.22.1'
+VERSION = 'v1.18.0'
 
 EXPECTED_NAMESPACE = {
     'contents': NAMESPACE,
