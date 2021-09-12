@@ -96,8 +96,8 @@ class K8SStatusSegment(Segment):
         version = None
         if show_version:
             try:
-                config.load_kube_config()
-                version = VersionApi().get_code().git_version
+                version = VersionApi(
+                    config.load_kube_config()).get_code().git_version
             except (ConnectionRefusedError, MaxRetryError, ConfigException):
                 version = None
 
