@@ -11,6 +11,7 @@ import powerline_k8sstatus as powerlinek8s
 CONTEXT = 'minikube'
 NAMESPACE = 'tools'
 USER = 'minikube'
+VERSION = 'v1.20.9'
 
 EXPECTED_NAMESPACE = {
     'contents': NAMESPACE,
@@ -27,6 +28,12 @@ EXPECTED_NAMESPACE_ALERT = {
 EXPECTED_USER = {
     'contents': USER,
     'highlight_groups': ['k8sstatus_user'],
+    'divider_highlight_group': 'k8sstatus:divider'
+}
+
+EXPECTED_VERSION = {
+    'contents': VERSION,
+    'highlight_groups': ['k8sstatus_version'],
     'divider_highlight_group': 'k8sstatus:divider'
 }
 
