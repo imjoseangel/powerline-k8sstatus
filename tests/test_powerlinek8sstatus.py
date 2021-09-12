@@ -136,6 +136,24 @@ def test_context_usernamespace(pl, segment_info, expected_symbol):
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
+@pytest.mark.usefixtures('setup_namespacemocked_context', 'expected_symbol')
+def test_context_versionnamespace(pl, segment_info, expected_symbol):
+    output = powerlinek8s.k8sstatus(
+        pl=pl, segment_info=segment_info, show_namespace=True, show_version=True)
+    assert output == [expected_symbol, EXPECTED_NAMESPACE, EXPECTED_VERSION]
+
+
+@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
+@pytest.mark.usefixtures('setup_namespacemocked_context', 'expected_symbol')
+def test_context_versionusernamespace(pl, segment_info, expected_symbol):
+    output = powerlinek8s.k8sstatus(
+        pl=pl, segment_info=segment_info, show_namespace=True, show_user=True,
+        show_version=True)
+    assert output == [expected_symbol, EXPECTED_NAMESPACE,
+                      EXPECTED_USER, EXPECTED_VERSION]
+
+
+@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_mocked_context', 'expected_symbol')
 def test_context_notnamespacedefault(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
