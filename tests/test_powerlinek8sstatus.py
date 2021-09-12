@@ -6,11 +6,13 @@ import logging
 from kubernetes import config
 import pytest
 import powerline_k8sstatus as powerlinek8s
+from kubernetes.config.config_exception import ConfigException
+from urllib3.exceptions import MaxRetryError
 
 CONTEXT = 'minikube'
 NAMESPACE = 'tools'
 USER = 'minikube'
-VERSION = 'v1.18.0'
+VERSION = 'v1.22.1'
 
 EXPECTED_NAMESPACE = {
     'contents': NAMESPACE,
@@ -154,6 +156,14 @@ def test_context_versionusernamespace(pl, segment_info, expected_symbol):
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
+@pytest.mark.usefixtures('setup_nonemocked_context', 'expected_symbol')
+def test_context_version(pl, segment_info, expected_symbol):
+    output = powerlinek8s.k8sstatus(
+        pl=pl, segment_info=segment_info, show_version=True)
+    assert output is None
+
+
+@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_mocked_context', 'expected_symbol')
 def test_context_notnamespacedefault(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
@@ -171,7 +181,7 @@ def test_context_notnamespacedefaulttrue(pl, segment_info, expected_symbol):
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_notnamespacemocked_context', 'expected_symbol')
-def test_context_notnamespacdefined(pl, segment_info, expected_symbol):
+def test_context_notnamespacedefined(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
         pl=pl, segment_info=segment_info)
     assert output == [expected_symbol]
