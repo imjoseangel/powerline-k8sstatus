@@ -47,6 +47,18 @@ def mockk8snonereturn():
     return None
 
 
+def mockversionreturn():
+    return ({'build_date': '2021-07-16T01:10:02Z',
+             'compiler': 'gc',
+             'git_commit': '7a576bc3935a6b555e33346fd73ad77c925e9e4a',
+             'git_tree_state': 'clean',
+             'git_version': 'v1.20.9',
+             'go_version': 'go1.15.14',
+             'major': '1',
+             'minor': '20',
+             'platform': 'linux/amd64'})
+
+
 @pytest.fixture
 def expected_symbol(request):
     return {'contents': ('\U00002388 {}').format(
