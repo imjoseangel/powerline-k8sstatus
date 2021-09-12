@@ -6,11 +6,13 @@ import logging
 from kubernetes import config
 import pytest
 import powerline_k8sstatus as powerlinek8s
-
+from kubernetes.config.config_exception import ConfigException
+from urllib3.exceptions import MaxRetryError
 
 CONTEXT = 'minikube'
 NAMESPACE = 'tools'
 USER = 'minikube'
+VERSION = 'v1.18.0'
 
 EXPECTED_NAMESPACE = {
     'contents': NAMESPACE,
@@ -27,6 +29,12 @@ EXPECTED_NAMESPACE_ALERT = {
 EXPECTED_USER = {
     'contents': USER,
     'highlight_groups': ['k8sstatus_user'],
+    'divider_highlight_group': 'k8sstatus:divider'
+}
+
+EXPECTED_VERSION = {
+    'contents': VERSION,
+    'highlight_groups': ['k8sstatus_version'],
     'divider_highlight_group': 'k8sstatus:divider'
 }
 
@@ -49,7 +57,7 @@ def mockk8snonereturn():
 
 @pytest.fixture
 def expected_symbol(request):
-    return {'contents': (u'\U00002388 {}').format(
+    return {'contents': ('\U00002388 {}').format(
         CONTEXT), 'highlight_groups': [request.param]}
 
 
@@ -86,6 +94,7 @@ def setup_notnamespacemocked_context(monkeypatch):
 def setup_nonemocked_context(monkeypatch):
     monkeypatch.setattr(
         config, 'list_kube_config_contexts', mockk8snonereturn)
+    monkeypatch.setattr(config, 'load_kube_config', mockk8snonereturn)
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
@@ -114,10 +123,36 @@ def test_context_user(pl, segment_info, expected_symbol):
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_namespacemocked_context', 'expected_symbol')
+def test_context_version(pl, segment_info, expected_symbol):
+    output = powerlinek8s.k8sstatus(
+        pl=pl, segment_info=segment_info, show_version=True)
+    assert output == [expected_symbol, EXPECTED_VERSION]
+
+
+@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
+@pytest.mark.usefixtures('setup_namespacemocked_context', 'expected_symbol')
 def test_context_usernamespace(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
         pl=pl, segment_info=segment_info, show_namespace=True, show_user=True)
     assert output == [expected_symbol, EXPECTED_NAMESPACE, EXPECTED_USER]
+
+
+@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
+@pytest.mark.usefixtures('setup_namespacemocked_context', 'expected_symbol')
+def test_context_versionnamespace(pl, segment_info, expected_symbol):
+    output = powerlinek8s.k8sstatus(
+        pl=pl, segment_info=segment_info, show_namespace=True, show_version=True)
+    assert output == [expected_symbol, EXPECTED_NAMESPACE, EXPECTED_VERSION]
+
+
+@pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
+@pytest.mark.usefixtures('setup_namespacemocked_context', 'expected_symbol')
+def test_context_versionusernamespace(pl, segment_info, expected_symbol):
+    output = powerlinek8s.k8sstatus(
+        pl=pl, segment_info=segment_info, show_namespace=True, show_user=True,
+        show_version=True)
+    assert output == [expected_symbol, EXPECTED_NAMESPACE,
+                      EXPECTED_USER, EXPECTED_VERSION]
 
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
@@ -138,7 +173,7 @@ def test_context_notnamespacedefaulttrue(pl, segment_info, expected_symbol):
 
 @pytest.mark.parametrize('expected_symbol', ['k8sstatus'], indirect=True)
 @pytest.mark.usefixtures('setup_notnamespacemocked_context', 'expected_symbol')
-def test_context_notnamespacdefined(pl, segment_info, expected_symbol):
+def test_context_notnamespacedefined(pl, segment_info, expected_symbol):
     output = powerlinek8s.k8sstatus(
         pl=pl, segment_info=segment_info)
     assert output == [expected_symbol]
