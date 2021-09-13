@@ -6,8 +6,6 @@ import logging
 from kubernetes import config
 import pytest
 import powerline_k8sstatus as powerlinek8s
-from kubernetes.config.config_exception import ConfigException
-from urllib3.exceptions import MaxRetryError
 
 CONTEXT = 'minikube'
 NAMESPACE = 'tools'
