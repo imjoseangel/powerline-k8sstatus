@@ -13,16 +13,23 @@ jobs:
         os: [ubuntu-latest]
     env:
       OS: ${{ matrix.os }}
-      PYTHON: '3.7'
+      PYTHON: '3.9'
+
     steps:
     - uses: actions/checkout@master
-    - name: start minikube
-      id: minikube
-      uses: medyagh/setup-minikube@master
+
+    - name: install k8s
+      run: |
+        curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE=777 sh -
+        cat /etc/rancher/k3s/k3s.yaml
+        mkdir -p ~/.kube
+        cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+
     - name: Setup Python
       uses: actions/setup-python@master
       with:
-        python-version: 3.7
+        python-version: 3.9
+
     - name: Generate coverage report
       run: |
         pip install pytest
@@ -30,6 +37,7 @@ jobs:
         pip install powerline-status
         pip install kubernetes
         pytest --cov=./ --cov-report=xml
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
