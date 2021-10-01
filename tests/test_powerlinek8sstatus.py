@@ -10,7 +10,7 @@ import powerline_k8sstatus as powerlinek8s
 CONTEXT = 'minikube'
 NAMESPACE = 'tools'
 USER = 'minikube'
-VERSION = 'v1.21.4+k3s1'
+VERSION = 'v1.21.1'
 
 EXPECTED_NAMESPACE = {
     'contents': NAMESPACE,
