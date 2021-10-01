@@ -18,12 +18,10 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    - name: install k8s
-      run: |
-        curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE=777 sh -
-        cat /etc/rancher/k3s/k3s.yaml
-        mkdir -p ~/.kube
-        cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+    - name: Install K8S
+      uses: helm/kind-action@v1.2.0
+      with:
+        version: v0.11.1
 
     - name: Setup Python
       uses: actions/setup-python@master
