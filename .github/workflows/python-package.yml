@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        kubernetes: ['v1.21']
         python-version: ['3.6', '3.7', '3.8', '3.9']
 
     steps:
